@@ -26,8 +26,8 @@ public class Dragon extends Player {
             drag.impacto(195);
             stun += 15;
             // ANIMATIONS
-            wiz.animations.electric.start(120);
-            cab.animations.atack.start(120);
+            wiz.animations.electric.start();
+            cab.animations.atack.start();
 
             System.out.println("Un ataque devastador para el Dragón! (-195 hp)");
             System.out.println("Dragon's hp: " + hp);
@@ -36,9 +36,9 @@ public class Dragon extends Player {
 
             // ANIMATIONS
             if (Posibilidad(50))
-                wiz.animations.electric.start(120);
+                wiz.animations.electric.start();
             else
-                cab.animations.atack.start(120);
+                cab.animations.atack.start();
 
             stun += 5;
             System.out.println("El Dragón es impactado. (-85 hp)");
@@ -49,8 +49,8 @@ public class Dragon extends Player {
             stun += 25;
 
             // ANIMATION
-            wiz.animations.poison.start(120);
-            cab.animations.hawk.start(120);
+            wiz.animations.poison.start();
+            cab.animations.hawk.start();
 
             System.out.println("El Dragón recibe un impacto critico! (-300 hp)");
             System.out.println("Dragon's hp: " + hp);
@@ -59,7 +59,7 @@ public class Dragon extends Player {
             stun += 20;
 
             // ANIME
-            wiz.animations.poison.start(120);
+            wiz.animations.poison.start();
 
             System.out.println("El Dragón es Envenenado (-95 hp)");
             System.out.println("Dragon's hp: " + hp);
@@ -68,7 +68,7 @@ public class Dragon extends Player {
             stun += 10;
 
             // anime
-            cab.animations.hawk.start(120);
+            cab.animations.hawk.start();
 
             System.out.println("El Dragón es impactado por un Tomahawk (-125 hp)");
             System.out.println("Dragon's hp: " + hp);
@@ -97,7 +97,7 @@ public class Dragon extends Player {
         }
         if (Posibilidad(94 - stun)) {
             // ANIMATION
-            drag.animations.fly.start(80);
+            drag.animations.fly.start();
 
             System.out.println("El ataque dragón falló...");
             return;
@@ -106,7 +106,7 @@ public class Dragon extends Player {
         }
         if (Posibilidad(50 + handicap)) { // Dragon's turn
             // ANIMATION
-            drag.animations.atack.start(80);
+            drag.animations.atack.start();
             if (cab.isDefending()) {
                 cab.impacto(15);
                 System.out.println("El caballero resiste un ataque del Dragón! (-15 hp)");
@@ -123,7 +123,7 @@ public class Dragon extends Player {
             }
         } else {
             // ANIMATION
-            drag.animations.atack.start(80);
+            drag.animations.atack.start();
 
             if (wiz.isDefending()) {
                 wiz.impacto(15);

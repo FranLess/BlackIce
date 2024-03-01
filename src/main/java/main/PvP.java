@@ -3,8 +3,6 @@ package main;
 import java.util.Scanner;
 
 public class PvP {
-    public static final int magoMls = 120;
-    public static final int caballeroMls = 90;
 
     public void Game() throws Exception {
         Scanner sc = new Scanner(System.in);
@@ -62,8 +60,8 @@ public class PvP {
             }
 
             if (wiz.isAttacking() && cab.isAttacking()) {
-                wiz.animations.electric.start(magoMls);
-                cab.animations.atack.start(caballeroMls);
+                wiz.animations.electric.start();
+                cab.animations.atack.start();
                 wiz.impacto(70);
                 cab.impacto(55); // mago pierde mas salud
                 System.out.println("Mago utiliza Relampago pero las tecnicas de"
@@ -74,8 +72,8 @@ public class PvP {
                         + "con " + cab.getSalud() + " hp.");
             }
             if (wiz.isAttacking() && cab.isDefending()) {
-                wiz.animations.electric.start(magoMls);
-                cab.animations.shield.start(caballeroMls);
+                wiz.animations.electric.start();
+                cab.animations.shield.start();
                 cab.impacto(5);
                 wiz.impacto(15); // caballero refleja el daño al bloquearlo
                 System.out.println("Mago utiliza Relampago pero el Caballero estaba "
@@ -86,8 +84,8 @@ public class PvP {
                         + cab.getSalud() + " hp total");
             }
             if (wiz.isAttacking() && cab.isUlting()) {
-                wiz.animations.electric.start(magoMls);
-                cab.animations.hawk.start(caballeroMls);
+                wiz.animations.electric.start();
+                cab.animations.hawk.start();
                 cab.impacto(70); // caballero falla y se castiga
                 System.out.println("Mago utiliza Relampago y sorprende al Caballero "
                         + "con su guardia baja, Caballero es severamente penalizado");
@@ -95,8 +93,8 @@ public class PvP {
                         + "dejandolo " + "con " + cab.getSalud() + " hp.");
             }
             if (wiz.isDefending() && cab.isAttacking()) {
-                wiz.animations.cure.start(magoMls);
-                cab.animations.atack.start(caballeroMls);
+                wiz.animations.cure.start();
+                cab.animations.atack.start();
                 wiz.regenerar(20); // mago esquiva y se regenera
                 System.out.println("El Caballero ataca pero el Mago esquiva sus "
                         + "movimientos y se cura en el proceso");
@@ -104,8 +102,8 @@ public class PvP {
                         + wiz.getSalud() + " hp");
             }
             if (wiz.isDefending() && cab.isDefending()) {
-                wiz.animations.cure.start(magoMls);
-                cab.animations.shield.start(caballeroMls);
+                wiz.animations.cure.start();
+                cab.animations.shield.start();
                 wiz.regenerar(45); // mago se regenera aun más
                 System.out.println("El Mago decide regenerar salud y no es "
                         + "molestado por el Caballero");
@@ -113,8 +111,8 @@ public class PvP {
                         + wiz.getSalud() + " hp");
             }
             if (wiz.isDefending() && cab.isUlting()) {
-                wiz.animations.cure.start(magoMls);
-                cab.animations.hawk.start(caballeroMls);
+                wiz.animations.cure.start();
+                cab.animations.hawk.start();
                 wiz.impacto(45); // mago es castigado
                 System.out.println("El Mago decide regenerar salud pero el "
                         + "pero es sorprendido por el Tomahawk del Caballero");
@@ -122,8 +120,8 @@ public class PvP {
                         + "con " + wiz.getSalud() + " hp.");
             }
             if (wiz.isUlting() && cab.isAttacking()) {
-                wiz.animations.poison.start(magoMls);
-                cab.animations.atack.start(caballeroMls);
+                wiz.animations.poison.start();
+                cab.animations.atack.start();
                 wiz.impacto(75); // mago es castigado
                 System.out.println("El Mago decide invocar un hechizo de envenenamiento "
                         + "pero fallo debido a las maniobras de combate del Caballero");
@@ -131,8 +129,8 @@ public class PvP {
                         + "con " + wiz.getSalud() + " hp.");
             }
             if (wiz.isUlting() && cab.isDefending()) {
-                wiz.animations.poison.start(magoMls);
-                cab.animations.shield.start(caballeroMls);
+                wiz.animations.poison.start();
+                cab.animations.shield.start();
                 cab.impacto(70); // caballero es castigado
                 System.out.println("El Caballero decide protegerse de un ataque "
                         + "por el mago pero no contaba con ataques anti-armadura");
@@ -140,8 +138,8 @@ public class PvP {
                         + "dejandolo " + "con " + cab.getSalud() + " hp.");
             }
             if (wiz.isUlting() && cab.isUlting()) {
-                wiz.animations.poison.start(magoMls);
-                cab.animations.hawk.start(caballeroMls);
+                wiz.animations.poison.start();
+                cab.animations.hawk.start();
                 wiz.impacto(15);
                 cab.impacto(45); // caballero pierde mas salud
                 System.out.println("El Mago decide invocar un hechizo de envenenamiento "

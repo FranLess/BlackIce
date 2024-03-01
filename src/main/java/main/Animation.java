@@ -15,9 +15,11 @@ import java.awt.*;
 
 public class Animation {
     private File dir;
+    private int miliseconds;
 
-    public Animation(String dir) {
+    public Animation(String dir, int miliseconds) {
         this.dir = new File(dir);
+        this.miliseconds = miliseconds;
         if (!this.dir.isDirectory())
             try {
                 throw new Exception("La animación debe contener un directorio");
@@ -26,7 +28,7 @@ public class Animation {
             }
     }
 
-    public void start(int miliseconds) throws InterruptedException, IOException {
+    public void start() throws InterruptedException, IOException {
         JFrame frame = new JFrame("ASCII Animation");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -65,7 +67,7 @@ public class Animation {
             // stop();
             // Hace visible la ventana
             frame.setVisible(true);
-            Thread.sleep(miliseconds);
+            Thread.sleep(this.miliseconds);
             // Helper.cleanConsole();
             textArea.setText("");
         }

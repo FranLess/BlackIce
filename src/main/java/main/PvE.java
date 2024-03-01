@@ -42,7 +42,7 @@ public class PvE {
                                 cab.regenerar(65);
                                 hc_heal += 15;
                                 // ANIMATION
-                                wiz.animations.cure.start(120);
+                                wiz.animations.cure.start();
 
                                 System.out.println("Caballero regenera 65 hp...");
                             } else {
@@ -54,7 +54,7 @@ public class PvE {
                                 wiz.regenerar(65);
                                 hc_heal += 15;
                                 // ANIMATION
-                                wiz.animations.cure.start(120);
+                                wiz.animations.cure.start();
 
                                 System.out.println("Mago regenera 65 hp...");
                             } else {
@@ -98,7 +98,7 @@ public class PvE {
                                 cab.bloquear();// modo defensa
                                 hc_block += 12;
                                 //ANIMATION
-                                cab.animations.shield.start(120);
+                                cab.animations.shield.start();
                                 System.out.println("Caballero se cubre...");
                             } else {
                                 System.out.println("La defensa falló...");
@@ -109,7 +109,7 @@ public class PvE {
                                 wiz.curar();// modo defensa
                                 hc_block += 12;
                                 // ANIMATION
-                                cab.animations.shield.start(120);
+                                cab.animations.shield.start();
                                 System.out.println("Mago es protegido...");
                             } else {
                                 System.out.println("La defensa falló...");
@@ -148,7 +148,7 @@ public class PvE {
                 break;
             }
             if (drag.checkDeath()) {
-                drag.animations.die.start(80);
+                drag.animations.die.start();
                 System.out.println("VICTORIA! HAN DERROTADO AL DRAGON!!");
                 break;
             }
