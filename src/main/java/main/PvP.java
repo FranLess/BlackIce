@@ -15,6 +15,16 @@ public class PvP {
         c = sc.nextLine();
         Caballero cab = new Caballero(c);
         System.out.println("vos " + w + " Mago y " + c + " Caballero se daran en la madre, buena suerte!");
+        System.out.println("La dinámica es simple, como un piedra papel o tijera");
+        System.out.println("Los movimientos defensivos bloquean ataques normales");
+        System.out.println("Los ataques especiales rompen defensas");
+        System.out.println("Los ataques especiales son débiles ante ataques normales");
+        System.out.println();
+        System.out.println("Es importante que: ");
+        System.out.println("¡EL CABALLERO NO DEBE VER EL MOVIMIENTO DEL MAGO!");
+        System.out.println("\n Iniciar...");
+        sc.nextLine();
+        Helper.cleanConsole();
 
         while (true) {
             System.out.println("### Turno del Mago ###");

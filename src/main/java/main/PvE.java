@@ -14,6 +14,14 @@ public class PvE {
         c = sc.nextLine();
         System.out.println("Bienvenidos sean " + w + " Mago y " + c + " Caballero!!!");
         System.out.println("Vos enfrentaráis al dragon...");
+        System.out.println("Nobles aventureros tened en cuenta las siguientes pautas:");
+        System.out.println("1. Los ataques normales casi nunca fallan.");
+        System.out.println("2. Los movimientos defensivos y especiales tienen mayor probalidada de fallar.");
+        System.out.println("3. Entre más daño recibe el dragón es más probable que no ataque.");
+        System.out.println("¡SUERTE EN VUESTRA AVENTURA!");
+        System.out.println("\n Iniciar...");
+        sc.nextLine();
+        Helper.cleanConsole();
         Caballero cab = new Caballero(c); // Constructores
         Mago wiz = new Mago(w);
         Dragon drag = new Dragon();
@@ -35,7 +43,7 @@ public class PvE {
                     }
                     break;
                 case "2":
-                    System.out.print("¿Para quien? [C]aballero o [M]ago");
+                    System.out.print("¿Para quien? [C]aballero o [M]ago: ");
                     switch (sc.nextLine()) {
                         case "C":
                             if (Posibilidad(98, hc_heal)) {
@@ -91,13 +99,13 @@ public class PvE {
                     }
                     break;
                 case "2":
-                    System.out.print("¿A quien? [C]aballero o [M]ago");
+                    System.out.print("¿A quien? [C]aballero o [M]ago: ");
                     switch (sc.nextLine()) {
                         case "C":
                             if (Posibilidad(96, hc_block)) {
                                 cab.bloquear();// modo defensa
                                 hc_block += 12;
-                                //ANIMATION
+                                // ANIMATION
                                 cab.animations.shield.start();
                                 System.out.println("Caballero se cubre...");
                             } else {
@@ -131,6 +139,9 @@ public class PvE {
                         System.out.println("El ataque falló...");
                     }
             }
+            System.out.print("Continuar...");
+            sc.nextLine();
+
             Helper.cleanConsole();
             drag.Golpiza(wiz, cab, drag); // Dragon Time
 
@@ -184,7 +195,7 @@ public class PvE {
                 first_round = false;
             }
         }
-
+        sc.close();
     }
 
     public boolean Posibilidad(int porcentaje, int handicap) {
