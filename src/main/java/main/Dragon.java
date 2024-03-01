@@ -1,5 +1,6 @@
 
 package main;
+
 import java.util.Random;
 
 public class Dragon extends Player {
@@ -14,7 +15,7 @@ public class Dragon extends Player {
         handicap = 0; // better chance of predicting drag attacks
     }
 
-    public void Golpiza(Mago wiz, Caballero cab, Dragon drag) {
+    public void Golpiza(Mago wiz, Caballero cab, Dragon drag) throws Exception {
         if (stun > 0) {
             stun -= 10;
             if (stun <= 0) {
@@ -24,10 +25,21 @@ public class Dragon extends Player {
         if (wiz.isAttacking() && cab.isAttacking()) { // Player Attacks
             drag.impacto(195);
             stun += 15;
+            // ANIMATIONS
+            wiz.animations.electric.start(120);
+            cab.animations.atack.start(120);
+
             System.out.println("Un ataque devastador para el Dragón! (-195 hp)");
             System.out.println("Dragon's hp: " + hp);
         } else if (wiz.isAttacking() || cab.isAttacking()) {
             drag.impacto(85);
+
+            // ANIMATIONS
+            if (Posibilidad(50))
+                wiz.animations.electric.start(120);
+            else
+                cab.animations.atack.start(120);
+
             stun += 5;
             System.out.println("El Dragón es impactado. (-85 hp)");
             System.out.println("Dragon's hp: " + hp);
@@ -35,16 +47,29 @@ public class Dragon extends Player {
         if (wiz.isUlting() && cab.isUlting()) {
             drag.impacto(300);
             stun += 25;
+
+            // ANIMATION
+            wiz.animations.poison.start(120);
+            cab.animations.hawk.start(120);
+
             System.out.println("El Dragón recibe un impacto critico! (-300 hp)");
             System.out.println("Dragon's hp: " + hp);
         } else if (wiz.isUlting()) {
             drag.impacto(95);
             stun += 20;
+
+            // ANIME
+            wiz.animations.poison.start(120);
+
             System.out.println("El Dragón es Envenenado (-95 hp)");
             System.out.println("Dragon's hp: " + hp);
         } else if (cab.isUlting()) {
             drag.impacto(125); // last moment buffs?
             stun += 10;
+
+            // anime
+            cab.animations.hawk.start(120);
+
             System.out.println("El Dragón es impactado por un Tomahawk (-125 hp)");
             System.out.println("Dragon's hp: " + hp);
         }
@@ -71,12 +96,17 @@ public class Dragon extends Player {
             return;
         }
         if (Posibilidad(94 - stun)) {
+            // ANIMATION
+            drag.animations.fly.start(80);
+
             System.out.println("El ataque dragón falló...");
             return;
         } else {
             stun -= 10;
         }
         if (Posibilidad(50 + handicap)) { // Dragon's turn
+            // ANIMATION
+            drag.animations.atack.start(80);
             if (cab.isDefending()) {
                 cab.impacto(15);
                 System.out.println("El caballero resiste un ataque del Dragón! (-15 hp)");
@@ -92,6 +122,9 @@ public class Dragon extends Player {
                 handicap -= 15;
             }
         } else {
+            // ANIMATION
+            drag.animations.atack.start(80);
+
             if (wiz.isDefending()) {
                 wiz.impacto(15);
                 System.out.println("El mago resiste un ataque del Dragón! (-15 hp)");

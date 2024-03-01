@@ -5,11 +5,11 @@ public class BlackIce {
         //Caballero knight = new Caballero("Alberto");
         //Mago wizard = new Mago("Eugenio");
         
-        PvP multiplayer = new PvP();
-        multiplayer.Game();
+        // PvP multiplayer = new PvP();
+        // multiplayer.Game();
         
-        // PvE coop = new PvE();
-        // coop.Mission();
+        PvE coop = new PvE();
+        coop.Mission();
         
         // Eyy
     }

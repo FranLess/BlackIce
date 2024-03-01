@@ -66,46 +66,9 @@ public class Animation {
             // Hace visible la ventana
             frame.setVisible(true);
             Thread.sleep(miliseconds);
-            Helper.cleanConsole();
+            // Helper.cleanConsole();
             textArea.setText("");
         }
     };
 
-    // public void start(boolean shouldCleanConsole) throws InterruptedException,
-    // IOException {
-    // active = true;
-    // while (active) {
-    // for (File file : this.dir.listFiles((dir, name) -> name.endsWith(".txt"))) {
-    // Path path = Paths.get(file.getPath());
-    // List<String> lines = Files.lines(path).collect(Collectors.toList());
-    // for (String line : lines) {
-    // System.out.println(line);
-    // }
-    // // stop();
-    // if (shouldCleanConsole)
-    // Helper.cleanConsole();
-    // }
-    // }
-    // };
-
-    // public void startWithPng(int miliseconds) throws Exception {
-    // active = true;
-    // while (active) {
-    // for (File file : this.dir.listFiles((dir, name) -> name.endsWith(".png"))) {
-    // ASCIIArtCreator.printAndPerformActionsAfterScaling("200", file);
-    // // stop();
-    // Thread.sleep(miliseconds);
-    // Helper.cleanConsole();
-    // }
-    // }
-    // }
-
-    // public void stop() throws IOException {
-    // System.out.print("Presiona cualquier tecla para continuar o 'q' para salir:
-    // ");
-    // int key = System.in.read();
-    // if (key == 'q') {
-    // active = false;
-    // }
-    // }
 }
