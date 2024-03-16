@@ -7,10 +7,6 @@ public class Caballero extends Player {
         super(nom);
     }
 
-    public void bloquear() {
-        defend = true;
-    }
-
     public void tomahawk() {
         special = true;
     }

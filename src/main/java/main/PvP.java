@@ -27,11 +27,8 @@ public class PvP {
         Helper.cleanConsole();
 
         while (true) {
-            System.out.println("### Turno del Mago ###");
-            System.out.println("[1] Atacar (Relampago)");
-            System.out.println("[2] Defender (Regeneras salud y esquivas ataques)");
-            System.out.println("[3] Anti-Defensa (Veneno)");
-            System.out.print("Elige tu movimiento: ");
+            // OPCIONES MAGO
+            Mensajes.mostrarOpcionesMago();
             switch (sc.nextLine()) {
                 case "1":
                     wiz.atacar();
@@ -50,11 +47,8 @@ public class PvP {
                 System.out.println("XX######XX");
             }
 
-            System.out.println("### Turno del Caballero ###");
-            System.out.println("[1] Atacar (Espada)");
-            System.out.println("[2] Defender (Escudo)");
-            System.out.println("[3] Anti-Defensa (Tomahawk)");
-            System.out.print("Elige tu movimiento: ");
+            // OPCIONES DE CABALLERO
+            Mensajes.mostrarOpcionesCaballero();
             switch (sc.nextLine()) {
                 case "1":
                     cab.atacar();

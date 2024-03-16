@@ -1,149 +1,68 @@
 package main;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
 public class PvE {
+    public static final int HEAL_POINTS = 65;
+    // HANDICAPS
+    private int hc_heal = 0;
+    private int hc_block = 0;
+    private int hc_tomahawk = 0;
+    private int hc_poison = 0;
+    boolean first_round = true;
+    private Mago wiz;
+    private Caballero cab;
+    private Dragon drag;
+    Scanner sc = new Scanner(System.in);
+    // Intro
+    String wizName;
+    String cabName;
+    private Golpiza golpiza; // Dragon Time
 
     public void Mission() throws Exception {
-        Scanner sc = new Scanner(System.in);
-        String w, c; // Intro
-        System.out.print("Mago escribe tu nombre: ");
-        w = sc.nextLine();
-        System.out.print("Caballero escribe tu nombre: ");
-        c = sc.nextLine();
-        System.out.println("Bienvenidos sean " + w + " Mago y " + c + " Caballero!!!");
-        System.out.println("Vos enfrentaráis al dragon...");
-        System.out.println("Nobles aventureros tened en cuenta las siguientes pautas:");
-        System.out.println("1. Los ataques normales casi nunca fallan.");
-        System.out.println("2. Los movimientos defensivos y especiales tienen mayor probalidada de fallar.");
-        System.out.println("3. Entre más daño recibe el dragón es más probable que no ataque.");
-        System.out.println("¡SUERTE EN VUESTRA AVENTURA!");
-        System.out.println("\n Iniciar...");
-        sc.nextLine();
-        Helper.cleanConsole();
-        Caballero cab = new Caballero(c); // Constructores
-        Mago wiz = new Mago(w);
-        Dragon drag = new Dragon();
+        // SE INICIALIZA EL JUEGO
+        inicializarJuego();
 
-        boolean first_round = true;
-        int hc_heal = 0, hc_block = 0, hc_tomahawk = 0, hc_poison = 0; // handicaps
         while (true) { // GAME ON!!
-            System.out.println("### Turno del Mago ###");
-            System.out.println("[1] Relampago");
-            System.out.println("[2] Sanación");
-            System.out.println("[3] Veneno");
-            System.out.print("Elige tu movimiento: ");
+
+            // MOSTRAR OPCIONES DEL MAGO
+            Mensajes.mostrarOpcionesMago();
             switch (sc.nextLine()) {
-                case "1":
-                    if (Posibilidad(94, 0)) {
-                        wiz.atacar();
-                    } else {
-                        System.out.println("El ataque falló...");
-                    }
+                case "1": // CASO DE ATAQUE
+                    wizAtack();
                     break;
-                case "2":
-                    System.out.print("¿Para quien? [C]aballero o [M]ago: ");
-                    switch (sc.nextLine()) {
-                        case "C":
-                            if (Posibilidad(98, hc_heal)) {
-                                cab.regenerar(65);
-                                hc_heal += 15;
-                                // ANIMATION
-                                wiz.animations.cure.start();
-
-                                System.out.println("Caballero regenera 65 hp...");
-                            } else {
-                                System.out.println("La curación falló...");
-                            }
-                            break;
-                        default:
-                            if (Posibilidad(98, hc_heal)) {
-                                wiz.regenerar(65);
-                                hc_heal += 15;
-                                // ANIMATION
-                                wiz.animations.cure.start();
-
-                                System.out.println("Mago regenera 65 hp...");
-                            } else {
-                                System.out.println("La curación falló...");
-                            }
-                    }
+                case "2": // CASO DE CURA
+                    generalHeal();
                     break;
-                case "3":
-                    if (Posibilidad(95, hc_poison)) {
-                        wiz.veneno();
-                        hc_poison += 15;
-                    } else {
-                        System.out.println("El veneno falló...");
-                    }
+                case "3": // CASO DE ULTI
+                    wizUlt();
                     break;
                 default:
-                    if (Posibilidad(94, 0)) {
-                        wiz.atacar();
-                    } else {
-                        System.out.println("El ataque falló...");
-                    }
+                    wizAtack();
             }
-            System.out.println("### Turno del Caballero ###");
-            System.out.println("[1] Espiritu Guerrero");
-            System.out.println("[2] Bloquear");
-            System.out.println("[3] Tomahawk");
-            System.out.print("Elige tu movimiento: ");
+
+            // OPCIONES DE CABALLERO
+            Mensajes.mostrarOpcionesCaballero();
             switch (sc.nextLine()) {
-                case "1":
-                    if (Posibilidad(95, 0)) {
-                        cab.atacar();
-                    } else {
-                        System.out.println("El ataque falló...");
-                    }
+                case "1":// ATAQUE DE CABALLERO
+                    cabAtack();
                     break;
-                case "2":
-                    System.out.print("¿A quien? [C]aballero o [M]ago: ");
-                    switch (sc.nextLine()) {
-                        case "C":
-                            if (Posibilidad(96, hc_block)) {
-                                cab.bloquear();// modo defensa
-                                hc_block += 12;
-                                // ANIMATION
-                                cab.animations.shield.start();
-                                System.out.println("Caballero se cubre...");
-                            } else {
-                                System.out.println("La defensa falló...");
-                            }
-                            break;
-                        default:
-                            if (Posibilidad(96, hc_block)) {
-                                wiz.curar();// modo defensa
-                                hc_block += 12;
-                                // ANIMATION
-                                cab.animations.shield.start();
-                                System.out.println("Mago es protegido...");
-                            } else {
-                                System.out.println("La defensa falló...");
-                            }
-                    }
+                case "2": // ESCUDO DE CABALLERO
+                    generalShield();
                     break;
-                case "3":
-                    if (Posibilidad(95, hc_tomahawk)) {
-                        cab.tomahawk();
-                        hc_tomahawk += 20;
-                    } else {
-                        System.out.println("El Tomahawk falló...");
-                    }
+                case "3": // ULTI DE CABALLERO
+                    cabUlt();
                     break;
                 default:
-                    if (Posibilidad(95, 0)) {
-                        cab.atacar();
-                    } else {
-                        System.out.println("El ataque falló...");
-                    }
+                    cabAtack();
             }
             System.out.print("Continuar...");
             sc.nextLine();
 
             Helper.cleanConsole();
-            drag.Golpiza(wiz, cab, drag); // Dragon Time
+            golpiza.start();
 
             /*
              * if (wiz.checkDeath() && cab.checkDeath()) { // se vale soñar
@@ -163,43 +82,149 @@ public class PvE {
                 System.out.println("VICTORIA! HAN DERROTADO AL DRAGON!!");
                 break;
             }
+            handleHandicap();
             cab.enGuardia();
             wiz.enGuardia();
 
-            if (!first_round) { // handicaps shit
-                if (hc_heal > 0) {
-                    hc_heal -= 10;
-                    if (hc_heal <= 0) {
-                        hc_heal = 0;
-                    }
-                }
-                if (hc_block > 0) {
-                    hc_block -= 10;
-                    if (hc_block <= 0) {
-                        hc_block = 0;
-                    }
-                }
-                if (hc_tomahawk > 0) {
-                    hc_tomahawk -= 10;
-                    if (hc_tomahawk <= 0) {
-                        hc_tomahawk = 0;
-                    }
-                }
-                if (hc_heal > 0) {
-                    hc_heal -= 10;
-                    if (hc_heal <= 0) {
-                        hc_heal = 0;
-                    }
-                }
-            } else {
-                first_round = false;
-            }
         }
         sc.close();
+
+    }
+
+    public void inicializarJuego() {
+        System.out.print("Mago escribe tu nombre: ");
+        wizName = sc.nextLine();
+        System.out.print("Caballero escribe tu nombre: ");
+        cabName = sc.nextLine();
+        // MENSAJE DE INICIO
+        Mensajes.mostrarInicioPve(wizName, cabName);
+        sc.nextLine();
+        Helper.cleanConsole();
+        // CONSTRUCTORES
+        cab = new Caballero(cabName);
+        wiz = new Mago(wizName);
+        drag = new Dragon();
+
+        golpiza = new Golpiza(wiz, cab, drag);
     }
 
     public boolean Posibilidad(int porcentaje, int handicap) {
         return new Random().nextInt(100) + 1 <= (porcentaje - handicap);
+    }
+
+    public void wizHeal(Player player) throws InterruptedException, IOException {
+        if (Posibilidad(98, hc_heal)) {
+            player.regenerar(HEAL_POINTS);
+            hc_heal += 15;
+
+            // ANIMATION
+            wiz.animations.cure.start();
+
+            System.out.println("Caballero regenera 65 hp...");
+        } else {
+            System.out.println("La curación falló...");
+        }
+    }
+
+    public void wizAtack() {
+        if (Posibilidad(94, 0)) {
+            wiz.atacar();
+        } else {
+            System.out.println("El ataque falló...");
+        }
+    }
+
+    public void generalHeal() throws InterruptedException, IOException {
+        System.out.print("¿Para quien? [C]aballero o [M]ago: ");
+        switch (sc.nextLine()) {
+            case "C":
+                wizHeal(cab);
+                break;
+            default:
+                wizHeal(wiz);
+        }
+    }
+
+    public void wizUlt() {
+        if (Posibilidad(95, hc_poison)) {
+            wiz.veneno();
+            hc_poison += 15;
+        } else {
+            System.out.println("El veneno falló...");
+        }
+    }
+
+    public void cabAtack() {
+        if (Posibilidad(95, 0)) {
+            cab.atacar();
+        } else {
+            System.out.println("El ataque falló...");
+        }
+    }
+
+    public void cabShield(Player player) throws InterruptedException, IOException {
+        if (Posibilidad(96, hc_block)) {
+            player.bloquear();// modo defensa
+            hc_block += 12;
+
+            // ANIMATION
+            cab.animations.shield.start();
+            System.out.println("Caballero se cubre...");
+        } else {
+            System.out.println("La defensa falló...");
+        }
+    }
+
+    public void generalShield() throws InterruptedException, IOException {
+        System.out.print("¿A quien? [C]aballero o [M]ago: ");
+        switch (sc.nextLine()) {
+            case "C":
+                cabShield(cab);
+                break;
+            default:
+                cabShield(wiz);
+                break;
+        }
+    }
+
+    public void cabUlt() {
+        if (Posibilidad(95, hc_tomahawk)) {
+            cab.tomahawk();
+            hc_tomahawk += 20;
+        } else {
+            System.out.println("El Tomahawk falló...");
+        }
+    }
+
+    public void handleHandicap() {
+        if (!first_round) { // handicaps shit
+            if (hc_heal > 0) {
+                hc_heal -= 10;
+                if (hc_heal <= 0) {
+                    hc_heal = 0;
+                }
+            }
+            if (hc_block > 0) {
+                hc_block -= 10;
+                if (hc_block <= 0) {
+                    hc_block = 0;
+                }
+            }
+            if (hc_tomahawk > 0) {
+                hc_tomahawk -= 10;
+                if (hc_tomahawk <= 0) {
+                    hc_tomahawk = 0;
+                }
+            }
+            if (hc_heal > 0) {
+                hc_heal -= 10;
+                if (hc_heal <= 0) {
+                    hc_heal = 0;
+                }
+            }
+        } else {
+            first_round = false;
+        }
     }
 
 }
